@@ -24,7 +24,8 @@ jobs:
       shell: bash
       run: |
         cmake -S . -B build -G Ninja \
-          -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DENABLE_UPDATER=OFF \
           -DENABLE_TESTS=OFF \
           -DENABLE_SCRIPTING=on \
           -DENABLE_CCACHE=off \
@@ -35,6 +36,10 @@ jobs:
       shell: bash
       run: |
         cd build && ninja aseprite
+    - name: Clean build artifacts
+      shell: bash
+      run: |
+        rm -f build/bin/*.pdb build/bin/gen.exe
     - name: Upload Aseprite
       uses: actions/upload-artifact@v4
       with:
